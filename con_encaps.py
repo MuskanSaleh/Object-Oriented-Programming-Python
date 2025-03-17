@@ -1,12 +1,19 @@
 #simple
 class Atm:
-  
     #constructor
     def __init__(self):
-        self.pin = ""  #instance variable 
-        self.balance = 0 #instance variable
-        self.menu() #method call
+        self.__pin = ""  #private
+        self.__balance = 0
         
+        self.menu() #method call
+      
+    def get_pin(self):
+        return self.__pin  
+      
+    def set_pin(self,new_pin):
+        if type(new_pin) == str:
+            self.__pin = new_pin
+            print("pin changed")
     #methods
     def menu(self):
         user_input = input("""
@@ -29,24 +36,24 @@ class Atm:
             print("Bye")
     
     def create_pin(self):
-         self.pin = input("Enter your pin : ")
+         self.__pin = input("Enter your pin : ")
          print("Pin set successfully")
                 
     def deposit(self):
         temp  = input("Enter your pin")
-        if temp == self.pin:
+        if temp == self.__pin:
              amount = int(input("Enter the amount:"))
-             self.balance = self.balance + amount
+             self.__balance = self.__balance + amount
              print("Deposit successful")
         else:
              print("Invalid pin")
 
     def withdraw(self):
         temp  = input("Enter your pin")
-        if temp == self.pin:
+        if temp == self.__pin:
              amount = int(input("Enter the amount:"))
-             if amount < self.balance:
-                self.balance = self.balance - amount
+             if amount < self.__balance:
+                self.__balance = self.__balance - amount
                 print("Operation Successfull")
              else:
                  print("Insufficient balance")
@@ -55,9 +62,14 @@ class Atm:
         
     def check_balance(self):
         temp  = input("Enter your pin")
-        if temp == self.pin:
-             print(self.balance)
+        if temp == self.__pin:
+             print(self.__balance)
         else:
              print("Invalid pin")
-         
-atm1 = Atm()
+        
+atm1 = Atm() #atm1 -> reference variable technically 
+atm1.deposit()
+atm1.check_balance()
+
+    
+    
